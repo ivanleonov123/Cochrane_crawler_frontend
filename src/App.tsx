@@ -5,6 +5,7 @@ import { useReviews } from './hooks/useReviews';
 import { useInfiniteScroll } from './hooks/useInfiniteScroll';
 import ReviewList from './components/ReviewList';
 import SearchBox from './components/SearchBox';
+import TopicFilter from './components/TopicFilter';
 
 function App() {
   // Use custom hook for data management
@@ -37,15 +38,18 @@ function App() {
       </header>
       <main className="container">
         <div className="reviews-container">
-          <div className="reviews-header">
-            <h2>Medical Research Reviews</h2>
-            <p className="reviews-count">
-              Showing {displayedReviews.length} of {filteredReviews.length} reviews
-              {selectedTopic && ` for "${selectedTopic}"`}
-            </p>
-          </div>
-          
           <div className="search-container">
+            <div className="topic-filter-section">
+              <TopicFilter
+                selectedTopic={selectedTopic}
+                onRemoveTopic={clearSearch}
+              />
+              {selectedTopic && (
+                <p className="topic-filter-count">
+                  <span className="topic-filter-number">{filteredReviews.length}</span> Cochrane Reviews matching <span className="topic-filter-category">{selectedTopic}</span> in Cochrane Topic
+                </p>
+              )}
+            </div>
             <SearchBox
               searchTerm={searchTerm}
               onSearchChange={setSearchTerm}

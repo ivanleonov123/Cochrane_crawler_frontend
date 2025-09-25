@@ -1,0 +1,117 @@
+.topic-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topic-filter-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+}
+
+.topic-pill {
+  display: inline-flex;
+  align-items: center;
+  background-color: #962d91;
+  color: white;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  gap: 6px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.topic-pill:hover {
+  background-color: #7a2375;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.topic-pill-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.topic-pill-remove {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.topic-pill-remove:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.topic-pill-remove:active {
+  transform: scale(0.95);
+}
+
+.topic-pill-remove:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .topic-filter {
+    gap: 6px;
+  }
+  
+  .topic-filter-label {
+    font-size: 13px;
+  }
+  
+  .topic-pill {
+    padding: 5px 10px;
+    font-size: 13px;
+  }
+  
+  .topic-pill-text {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topic-filter {
+    gap: 4px;
+  }
+  
+  .topic-filter-label {
+    font-size: 12px;
+  }
+  
+  .topic-pill {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+  
+  .topic-pill-text {
+    max-width: 120px;
+  }
+  
+  .topic-pill-remove {
+    width: 16px;
+    height: 16px;
+    font-size: 14px;
+  }
+}

@@ -52,7 +52,7 @@ export const useReviews = () => {
   // Filter reviews by topic
   const filterByTopic = useCallback((topic: string) => {
     setSelectedTopic(topic);
-    setSearchTerm(topic);
+    setSearchTerm(''); // Clear the search bar when a topic filter is selected
     const filtered = filterReviewsByTopic(allReviews, topic);
     setFilteredReviews(filtered);
     // For search results, show first 10 and enable infinite scroll
