@@ -19,20 +19,18 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1rem;
-  position: relative;
-}
-
-.search-container {
-  position: absolute;
-  top: 60px;
-  right: 1rem;
-  z-index: 1000;
-  padding: 0;
 }
 
 .reviews-container {
   width: 100%;
   position: relative;
+}
+
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+  padding: 0;
 }
 
 .reviews-header {
@@ -56,11 +54,6 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .search-container {
-    top: 50px;
-    right: 1rem;
-  }
-  
   .container {
     padding: 1rem;
   }
@@ -68,11 +61,14 @@
   .reviews-header h2 {
     font-size: 1.5rem;
   }
+  
+  .search-container {
+    margin-bottom: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
   .search-container {
-    top: 40px;
-    right: 0.5rem;
+    margin-bottom: 1rem;
   }
 }

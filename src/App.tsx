@@ -24,16 +24,6 @@ function App() {
       <header className="App-header">
       </header>
       <main className="container">
-        <div className="search-container">
-          <SearchBox
-            searchTerm={searchTerm}
-            onSearchChange={setSearchTerm}
-            onTopicSelect={filterByTopic}
-            uniqueTopics={uniqueTopics}
-            placeholder="Search by topic..."
-          />
-        </div>
-        
         <div className="reviews-container">
           <div className="reviews-header">
             <h2>Medical Research Reviews</h2>
@@ -41,6 +31,16 @@ function App() {
               Showing {displayedReviews.length} of {filteredReviews.length} reviews
               {selectedTopic && ` for "${selectedTopic}"`}
             </p>
+          </div>
+          
+          <div className="search-container">
+            <SearchBox
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+              onTopicSelect={filterByTopic}
+              uniqueTopics={uniqueTopics}
+              placeholder="Search by topic..."
+            />
           </div>
           
           <ReviewList
