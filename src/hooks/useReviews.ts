@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Review, extractUniqueTopics, filterReviewsByTopic, paginateReviews } from '../utils/dataUtils';
+import { Review, extractUniqueTopics, filterReviewsByTopic } from '../utils/dataUtils';
 import cochraneReviews from '../data/cochrane_reviews.json';
 
 const REVIEWS_PER_PAGE = 10;
@@ -13,6 +13,7 @@ export const useReviews = () => {
   const [selectedTopic, setSelectedTopic] = useState<string>('');
   const [uniqueTopics, setUniqueTopics] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
 
   // Load data on mount
   useEffect(() => {
@@ -54,6 +55,9 @@ export const useReviews = () => {
     setSearchTerm(topic);
     const filtered = filterReviewsByTopic(allReviews, topic);
     setFilteredReviews(filtered);
+    // For search results, show first 10 and enable infinite scroll
+    setDisplayedReviews(filtered.slice(0, REVIEWS_PER_PAGE));
+    setCurrentPage(0);
   }, [allReviews]);
 
   // Clear search/filter
@@ -61,18 +65,38 @@ export const useReviews = () => {
     setSearchTerm('');
     setSelectedTopic('');
     setFilteredReviews(allReviews);
+    // Reset to first page and enable infinite scroll
+    setDisplayedReviews(allReviews.slice(0, REVIEWS_PER_PAGE));
+    setCurrentPage(0);
   }, [allReviews]);
 
   // Load more reviews (for infinite scroll)
   const loadMoreReviews = useCallback(() => {
-    const nextPage = currentPage + 1;
-    const pagination = paginateReviews(filteredReviews, nextPage, REVIEWS_PER_PAGE);
+    if (isLoadingMore) return; // Prevent multiple simultaneous loads
     
-    if (pagination.hasMore) {
-      setDisplayedReviews(prev => [...prev, ...pagination.reviews]);
-      setCurrentPage(nextPage);
+    const nextPage = currentPage + 1;
+    const startIndex = nextPage * REVIEWS_PER_PAGE;
+    const endIndex = startIndex + REVIEWS_PER_PAGE;
+    const nextBatch = filteredReviews.slice(startIndex, endIndex);
+    
+    if (nextBatch.length > 0) {
+      setIsLoadingMore(true);
+      
+      // Simulate a small delay for better UX (remove in production if not needed)
+      setTimeout(() => {
+        setDisplayedReviews(prev => [...prev, ...nextBatch]);
+        setCurrentPage(nextPage);
+        setIsLoadingMore(false);
+      }, 300);
     }
-  }, [currentPage, filteredReviews]);
+  }, [currentPage, filteredReviews, isLoadingMore]);
+
+  // Calculate if there are more reviews to load
+  const hasMore = useCallback(() => {
+    const totalDisplayed = displayedReviews.length;
+    const totalFiltered = filteredReviews.length;
+    return totalDisplayed < totalFiltered;
+  }, [displayedReviews.length, filteredReviews.length]);
 
   return {
     displayedReviews,
@@ -84,6 +108,8 @@ export const useReviews = () => {
     setSearchTerm,
     filterByTopic,
     clearSearch,
-    loadMoreReviews
+    loadMoreReviews,
+    hasMore: hasMore(),
+    isLoadingMore
   };
 };

@@ -9,6 +9,9 @@ interface ReviewListProps {
   emptyMessage?: string;
   onClearSearch?: () => void;
   showClearButton?: boolean;
+  hasMore?: boolean;
+  isLoadingMore?: boolean;
+  observerRef?: React.RefObject<HTMLDivElement | null>;
 }
 
 const ReviewList: React.FC<ReviewListProps> = ({
@@ -16,7 +19,10 @@ const ReviewList: React.FC<ReviewListProps> = ({
   isLoading = false,
   emptyMessage = "No reviews found.",
   onClearSearch,
-  showClearButton = false
+  showClearButton = false,
+  hasMore = false,
+  isLoadingMore = false,
+  observerRef
 }) => {
   if (isLoading) {
     return (
@@ -57,6 +63,28 @@ const ReviewList: React.FC<ReviewListProps> = ({
           />
         ))}
       </div>
+      
+      {/* Infinite scroll trigger element */}
+      <div ref={observerRef} className="review-list__scroll-trigger">
+        {hasMore && isLoadingMore && (
+          <div className="review-list__loading-more">
+            <div className="loading-spinner"></div>
+            <p>Loading more reviews...</p>
+          </div>
+        )}
+      </div>
+      
+      {/* End of results message */}
+      {!hasMore && reviews.length > 0 && (
+        <div className="review-list__end-message">
+          <p>
+            {reviews.length === 1 
+              ? "1 result found." 
+              : `${reviews.length} results found.`
+            }
+          </p>
+        </div>
+      )}
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import './styles/global.css';
 import './App.css';
 import { useReviews } from './hooks/useReviews';
+import { useInfiniteScroll } from './hooks/useInfiniteScroll';
 import ReviewList from './components/ReviewList';
 import SearchBox from './components/SearchBox';
 
@@ -16,8 +17,19 @@ function App() {
     uniqueTopics,
     setSearchTerm,
     filterByTopic,
-    clearSearch
+    clearSearch,
+    loadMoreReviews,
+    hasMore,
+    isLoadingMore
   } = useReviews();
+
+  // Use infinite scroll hook
+  const { observerRef } = useInfiniteScroll({
+    hasMore,
+    isLoading: isLoadingMore,
+    onLoadMore: loadMoreReviews,
+    threshold: 100
+  });
 
   return (
     <div className="App">
@@ -38,6 +50,7 @@ function App() {
               searchTerm={searchTerm}
               onSearchChange={setSearchTerm}
               onTopicSelect={filterByTopic}
+              onClearSearch={clearSearch}
               uniqueTopics={uniqueTopics}
               placeholder="Search by topic..."
             />
@@ -49,6 +62,9 @@ function App() {
             emptyMessage={selectedTopic ? `No reviews found for "${selectedTopic}".` : "No reviews found."}
             onClearSearch={clearSearch}
             showClearButton={!!selectedTopic}
+            hasMore={hasMore}
+            isLoadingMore={isLoadingMore}
+            observerRef={observerRef}
           />
         </div>
       </main>

@@ -5,6 +5,7 @@ interface SearchBoxProps {
   searchTerm: string;
   onSearchChange: (term: string) => void;
   onTopicSelect: (topic: string) => void;
+  onClearSearch?: () => void;
   uniqueTopics: string[];
   placeholder?: string;
 }
@@ -13,6 +14,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   searchTerm,
   onSearchChange,
   onTopicSelect,
+  onClearSearch,
   uniqueTopics,
   placeholder = "Search by topic..."
 }) => {
@@ -45,6 +47,16 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   const handleTopicSelect = (topic: string) => {
     onSearchChange(topic);
     onTopicSelect(topic);
+    setIsFocused(false);
+    inputRef.current?.blur();
+  };
+
+  // Handle clear search
+  const handleClearSearch = () => {
+    onSearchChange('');
+    if (onClearSearch) {
+      onClearSearch();
+    }
     setIsFocused(false);
     inputRef.current?.blur();
   };
@@ -91,8 +103,17 @@ const SearchBox: React.FC<SearchBoxProps> = ({
         <div className="search-icon">🔍</div>
       </div>
       
-      {isFocused && filteredTopics.length > 0 && (
+      {isFocused && (filteredTopics.length > 0 || !searchTerm || (searchTerm && filteredTopics.length === 0)) && (
         <div ref={dropdownRef} className="search-suggestions">
+          {(!searchTerm || (searchTerm && filteredTopics.length === 0)) && (
+            <div
+              className="suggestion-item suggestion-item--clear"
+              onClick={handleClearSearch}
+              onMouseDown={(e) => e.preventDefault()}
+            >
+              ✕ Clear Search
+            </div>
+          )}
           {filteredTopics.map((topic, index) => (
             <div
               key={index}
