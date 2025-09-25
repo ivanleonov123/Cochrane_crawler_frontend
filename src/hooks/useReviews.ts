@@ -79,6 +79,8 @@ export const useReviews = () => {
     filteredReviews,
     selectedTopic,
     isLoading,
+    searchTerm,
+    uniqueTopics,
     setSearchTerm,
     filterByTopic,
     clearSearch,

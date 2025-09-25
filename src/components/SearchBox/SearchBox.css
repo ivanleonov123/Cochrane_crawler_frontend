@@ -1,0 +1,156 @@
+.search-box-container {
+  position: relative;
+  width: 300px;
+}
+
+.search-box-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 2px solid #962d91;
+  border-radius: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.search-box-wrapper:focus-within {
+  border-color: #962d91;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: none;
+}
+
+.search-icon {
+  padding: 0 12px;
+  color: #962d91;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  order: 2;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px 0 12px 12px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #333;
+  background: transparent;
+  order: 1;
+}
+
+.search-input::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 2px solid #962d91;
+  border-top: none;
+  border-radius: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.suggestion-item {
+  padding: 12px 16px;
+  cursor: pointer;
+  color: #0066cc;
+  font-size: 14px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background-color: #f8f9ff;
+  color: #004499;
+  transform: translateX(2px);
+}
+
+.suggestion-item:active {
+  background-color: #e6f2ff;
+  transform: translateX(1px);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .search-box-container {
+    width: 250px;
+  }
+  
+  .search-input {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+  
+  .suggestion-item {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-box-container {
+    width: 200px;
+  }
+  
+  .search-icon {
+    padding: 0 10px;
+    font-size: 14px;
+  }
+  
+  .search-input {
+    padding: 10px 0 10px 10px;
+    font-size: 15px;
+  }
+}
+
+/* Focus and accessibility improvements */
+.search-input:focus-visible {
+  outline: none;
+}
+
+.suggestion-item:focus-visible {
+  outline: 2px solid #962d91;
+  outline-offset: -2px;
+}
+
+/* Loading state for suggestions */
+.search-suggestions.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Animation for dropdown appearance */
+.search-suggestions {
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
