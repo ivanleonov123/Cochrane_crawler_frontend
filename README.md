@@ -1,46 +1,113 @@
-# Getting Started with Create React App
+# Cochrane Library Reviews App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based Single Page Application for visualizing and searching Cochrane Library medical research reviews.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Display list of medical research reviews from Cochrane Library
+- Search functionality with auto-suggestions by topic
+- Responsive design for all screen sizes
+- Infinite scroll pagination (10 reviews initially, load more on scroll)
+- Color-coded interface using the primary color #962d91
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Node.js (version 14 or higher)
+- npm or yarn package manager
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Installation
 
-### `npm test`
+1. Clone or download this project
+2. Navigate to the project directory:
+   ```bash
+   cd cochrane-library-app
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-### `npm run build`
+## Running the Application
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Development Server
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To start the development server:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm start
+```
 
-### `npm run eject`
+This will open the application in your browser at `http://localhost:3000`.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Build for Production
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To create a production build:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+npm run build
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The built files will be in the `build` folder.
 
-## Learn More
+### Running Tests
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To run the test suite:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm test
+```
+
+## Project Structure
+
+```
+src/
+├── components/          # React components
+│   ├── ReviewList/     # Component for displaying list of reviews
+│   ├── ReviewCard/     # Individual review card component
+│   ├── SearchBox/      # Search input component
+│   └── AutoSuggest/    # Auto-suggestion dropdown component
+├── data/               # Data files
+│   └── cochrane_reviews.json  # Sample review data
+├── hooks/              # Custom React hooks
+├── utils/              # Utility functions
+├── styles/             # Global styles and CSS
+│   └── global.css      # Global styles with theme variables
+├── App.tsx             # Main application component
+└── index.tsx           # Application entry point
+```
+
+## Browser Compatibility
+
+This application is built with React 18 and supports all modern browsers:
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## Development Notes
+
+- The application uses TypeScript for type safety
+- Global styles are defined in `src/styles/global.css` with CSS custom properties
+- The primary color theme is #962d91 as specified in requirements
+- Responsive design uses CSS Grid and Flexbox
+- Accessibility features include proper ARIA labels and keyboard navigation
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Port 3000 already in use**: The development server will automatically try the next available port
+2. **Dependencies not installing**: Try deleting `node_modules` and `package-lock.json`, then run `npm install` again
+3. **Build errors**: Ensure you're using Node.js version 14 or higher
+
+### Getting Help
+
+If you encounter any issues:
+1. Check the browser console for error messages
+2. Ensure all dependencies are properly installed
+3. Verify that you're using a supported Node.js version
+
+## License
+
+This project is created for educational and demonstration purposes.
